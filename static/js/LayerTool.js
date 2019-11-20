@@ -513,7 +513,6 @@ function bindDrop(type,id)
         success: function (data) {
             //console.log(data);
             var list= data.data.dic_list;
-            dicTypeList=list;
             if (list != null) {
                 var html="<option value=''>请选择</option>";
                 for(var i=0;i<list.length;i++)

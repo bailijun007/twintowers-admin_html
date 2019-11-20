@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head runat="server">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+    <link rel="shortcut icon" href="../../static/img/favicon.ico">
+    <link href="../../static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="../../static/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../../static/css/style.css?v=4.1.0" rel="stylesheet">
+
+	<script src="../../static/js/jquery.min.js?v=2.1.4"></script>
+	<script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="../../static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="../../static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+	<script src="../../static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="../../static/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../static/js/plugins/layer/layer.min.js"></script>
+	<script src="../../static/js/LayerTool.js"></script>
+	<script src="../../static/js/common.js"></script>
+	<script src="../config.js"></script>
+	
+	<script src="openDate.js"></script>
+
+</head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				<div class="row row-lg">
+
+					<div class="col-sm-11 query-bar">
+					
+						<form id="queryForm">
+
+                            <div class="form-group" style="width: 15%; float: left;">
+                                <label class="sr-only">全部彩种</label>
+                                <select class="form-control" name="lotteryName">
+                                    <option value="全部彩种">全部彩种</option>
+                                    <option value="江苏快3">江苏快3</option>
+                                    <option value="极速快3">极速快3</option>
+                                    <option value="安徽快3">安徽快3</option>
+                                    <option value="北京快3">北京快3</option>
+                                    <option value="幸运快3">幸运快3</option>
+                                    <option value="广西快3">广西快3</option>
+                                    <option value="三分快3">三分快3</option>
+                                    <option value="甘肃快3">甘肃快3</option>
+                                    <option value="河北快3">河北快3</option>
+                                    <option value="吉林快3">吉林快3</option>
+                                    <option value="上海快3">上海快3</option>
+                                    <option value="极速时时彩">极速时时彩</option>
+                                    <option value="天津时时彩">天津时时彩</option>
+                                    <option value="新疆时时彩">新疆时时彩</option>
+                                    <option value="重庆时时彩">重庆时时彩</option>
+                                    <option value="极速pk10">极速pk10</option>
+                                    <option value="北京PK10">北京PK10</option>
+                                    <option value="极速时时彩">极速时时彩</option>
+                                    <option value="极速飞艇">极速飞艇</option>
+                                    <option value="幸运赛马">幸运赛马</option>
+                                    <option value="广东11选5">广东11选5</option>
+                                    <option value="上海时时乐">上海时时乐</option>
+                                    <option value="幸运28">幸运28</option>
+                                    <option value="北京28">北京28</option>
+                                    <option value="广东快乐十分">广东快乐十分</option>
+                                    <option value="重庆快乐十分">重庆快乐十分</option>
+                                    <option value="五分六合彩">五分六合彩</option>
+                                </select>
+                            </div>
+
+							<div class="form-group" style="width: 15%; float: left;">
+								<label class="sr-only">期数</label> <input type="text" name="period" placeholder="期数" id="title" class="form-control">
+							</div>
+							
+							<div class="form-group" style="width: 15%; float: left;">
+								<input type="text" name="modifiedBegin" placeholder="开始时间" id="modifiedBegin" class="form-control time-input">
+							</div>
+							
+							<div class="form-group" style="width: 15%; float: left;">
+								<input type="text" name="modifiedEnd" placeholder="开始时间" id="modifiedEnd" class="form-control time-input">
+							</div>
+							
+							<div class="input-group">
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary" id="btn_query">查询</button>
+								</span>
+							</div>
+						</form>
+					</div>
+
+					<div class="col-sm-12">
+
+						<div class="example-wrap">
+							<div class="example">
+								<div class="bootstrap-table">
+								
+									<div class="fixed-table-toolbar">
+										<div class="bars pull-left">
+											<div class="btn-group hidden-xs" id="toolbar" role="group">
+											
+												<a class="btn btn-outline btn-default btn-add" href="javascript:void(0)">
+													<i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+													新增
+												</a>
+												
+												<a class="btn btn-outline btn-default btn-del" href="javascript:del_confirm('','','','')">
+													<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+													删除
+												</a>
+													
+											</div>
+										</div>
+									</div>
+									
+									<table id="data_table"></table>
+									
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						<!-- End Example Events -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Panel Other -->
+	</div>
+</body>
+</html>
+
+
+
+
