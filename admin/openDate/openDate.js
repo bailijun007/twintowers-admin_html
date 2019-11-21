@@ -123,6 +123,11 @@ $(function () {
         search();
     }
 
+    function reset(){
+
+        $('#queryForm')[0].reset();
+    }
+
     function search() {
         var formData = form2json('queryForm');
         console.log(formData);
@@ -137,6 +142,8 @@ $(function () {
     $('.btn-save').click(saveOrUpdate);
 
     //$('.btn-edit').click(edit);
+
+    $('#btn_reset').click(reset);
 
     $('.btn-del').click(del);
 
