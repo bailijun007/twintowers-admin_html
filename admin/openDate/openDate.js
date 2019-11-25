@@ -1,11 +1,8 @@
-
 // config
 var userCtx = {
     URL_PAGE_QUERY: "/admin/api/order/findOpenDate",
-     URL_POST : "/admin/api/order/orderRefund",
-    // URL_SAVE : "/admin/api/order/orderRefund",
-    // URL_BATCH_ENABLE : "/admin/user/enable/batch",
-    //URL_INFO:""
+    URL_POST: "/admin/api/order/orderRefund",
+    URL_LOTTERY_LIST: "/admin/lottery/action/getLotterys",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);
@@ -60,6 +57,20 @@ $(function () {
     var table = new MyDataTable(id, tableUrl, columns, true);
     table.ajaxMethod = 'post';
     table.init();
+    //加载彩票列表
+    initLottery();
+
+    function initLottery() {
+
+        ajaxRequest(userCtx.URL_LOTTERY_LIST, '', function (data) {
+            $.each(data, function (i, item) {
+                $("#lottery").append("<option value=" + item.lotteryId + ">" + item.lotteryName + "</option>");
+            });
+
+        }, 'GET');
+
+    }
+
 
     function add() {
         Dialog.openUrl('edit.html', '添加' + data_label, 800);
@@ -112,6 +123,11 @@ $(function () {
         search();
     }
 
+    function reset(){
+
+        $('#queryForm')[0].reset();
+    }
+
     function search() {
         var formData = form2json('queryForm');
         console.log(formData);
@@ -121,45 +137,13 @@ $(function () {
         $('#queryForm')[0].reset();
     }
 
-
-    // function getInfo(id)
-    // {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: userCtx.URL_INFO + "?id=" + id ,
-    //         dataType: 'json',
-    //         success: function (data) {
-    //                 $("#period").val(data.period);
-    //         },
-    //         error: function (data) {
-    //             console.log(data.msg);
-    //         },
-    //     });
-    // }
-
-    // function subInfo()
-    // {
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: userCtx.URL_INFO + "?id=" + id ,
-    //         dataType: 'json',
-    //         data:{
-    //             period:$("#period").val()
-    //         },
-    //         success: function (data) {
-    //             $("#period").val(data.period);
-    //         },
-    //         error: function (data) {
-    //             console.log(data.msg);
-    //         },
-    //     });
-    // }
-
     $('.btn-add').click(add);
 
     $('.btn-save').click(saveOrUpdate);
 
     //$('.btn-edit').click(edit);
+
+    $('#btn_reset').click(reset);
 
     $('.btn-del').click(del);
 
@@ -174,9 +158,6 @@ $(function () {
 });
 
 function edit(period, openTime, lotteryId) {
-    // var id = $(event.target).data('id');
-    // Dialog.openUrl('edit.html?id='+id, '修改'+data_label, 800);
-
     layer.confirm('<span style="color:black">退款操作</span><br/> ' +
         '<span style="color:black">期号：' + JSON.stringify(period) + '</span><br/>' +
         '<span style="color:black">开奖时间：' + JSON.stringify(openTime) + '</span><br/><br/>' +
@@ -188,12 +169,12 @@ function edit(period, openTime, lotteryId) {
         layer.msg('已取消', {icon: 1});
     }, function () {
         var postData = {"period": period, "lotteryId": lotteryId};
-        ajaxRequest(userCtx.URL_POST, postData, function(data){
+        ajaxRequest(userCtx.URL_POST, postData, function (data) {
             layer.msg('退款提示', {
                 time: 20000, //20s后自动关闭
                 btn: [data]
             });
-        },'POST');
+        }, 'POST');
 
     });
 }
