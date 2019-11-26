@@ -1,55 +1,90 @@
-// config
-var userCtx = {
-    URL_PAGE_QUERY: "/admin/api/order/findOpenDate",
-    URL_POST: "/admin/api/order/orderRefund",
-    URL_LOTTERY_LIST: "/admin/lottery/action/getLotterys",
-};
 
-BeanUtil.setPrefix(userCtx, appConfig.host);
 
 $(function () {
+
+    // config
+    var userCtx = {
+        URL_PAGE_QUERY: "/admin/api/action/findDataStatistics",
+        // URL_POST: "/admin/api/order/orderRefund"
+    };
+
+    BeanUtil.setPrefix(userCtx, appConfig.host);
+
 
     //以下基本固定
 
     var id = 'data_table';
     var tableUrl = userCtx.URL_PAGE_QUERY;
-    var data_label = '用户';
+    var data_label = '本站数据统计';
     var columns = [
         {
             checkbox: true
         }, {
-            title: '彩种',
-            field: 'lotteryName'
+            title: '充值总额',
+            field: 'rechargeTotal'
         }, {
-            title: '期号',
-            field: 'period'
-        },
-        {
-            title: '开奖数据',
-            field: 'lotteryNumber'
+            title: '在线充值',
+            field: 'onLineRecharge'
         }, {
-            title: '状态',
-            field: 'orderState'
+            title: '人工入款',
+            field: 'labourRecharge'
         }, {
-            title: '开奖时间',
-            field: 'openTime'
-        }, {
-            title: '参与人数',
-            field: 'numberOfParticipants'
+            title: 'BYS入款',
+            field: 'bysrecharge'
         }, {
             title: '投注金额',
-            field: 'orderAmount'
+            field: 'orderAmountTotal'
         }, {
             title: '中奖金额',
-            field: 'winAmount'
-        },
-        {
-            title: '操作',
-            field: '#',
-            align: 'center',
-            formatter: function (value, row, index) {
-                return "<a data-id='" + row.lotteryId + "' class='btn-edit'  onclick='edit(" + JSON.stringify(row.period) + "," + JSON.stringify(row.openTime) + "," + JSON.stringify(row.lotteryId) + ")'  href='javascript:void(0)'>退款</a>";
-            }
+            field: 'winAmountTotal'
+        }, {
+            title: '当月总投注',
+            field: 'thisMonthOrderTotal'
+        }, {
+            title: '当月总中奖',
+            field: 'thisMonthWinTotal'
+        }, {
+            title: '投注单量',
+            field: 'bettingCounts'
+        }, {
+            title: '用户余额总数',
+            field: 'userBalanceTotal'
+        }, {
+            title: '本月损益',
+            field: 'thisMonthProfitAndLoss'
+        }, {
+            title: '上月损益',
+            field: 'lastMonthProfitAndLoss'
+        }, {
+            title: '当日盈利',
+            field: 'thisDayProfitAndLoss'
+        }, {
+            title: '当日盈率',
+            field: 'thisDayProfitAndLossRatio'
+        }, {
+            title: '当月盈利',
+            field: 'thisMonthProfitAndLoss2'
+        }, {
+            title: '当月盈率',
+            field: 'thisMonthProfitAndLossRatio'
+        }, {
+            title: '上月盈利',
+            field: 'lastMonthProfitAndLoss2'
+        }, {
+            title: '上月盈率',
+            field: 'lastMonthProfitAndLossRatio'
+        }, {
+            title: '充值笔数',
+            field: 'rechargeNum'
+        }, {
+            title: '提现笔数',
+            field: 'withdrawNum'
+        }, {
+            title: '注册人数',
+            field: 'registerNum'
+        }, {
+            title: '在线人数',
+            field: 'onLineNum'
         }
     ];
 
@@ -57,19 +92,6 @@ $(function () {
     var table = new MyDataTable(id, tableUrl, columns, true);
     table.ajaxMethod = 'post';
     table.init();
-    //加载彩票列表
-    initLottery();
-
-    function initLottery() {
-
-        ajaxRequest(userCtx.URL_LOTTERY_LIST, '', function (data) {
-            $.each(data, function (i, item) {
-                $("#lottery").append("<option value=" + item.lotteryId + ">" + item.lotteryName + "</option>");
-            });
-
-        }, 'GET');
-
-    }
 
 
     function add() {
@@ -102,13 +124,13 @@ $(function () {
         }
     }
 
-    function bindEditor(lotteryId, period, openTime) {
-        if (lotteryId, period, openTime) {
-            ajaxRequest(userCtx.URL_GET, {lotteryId: lotteryId, period: period, openTime: openTime}, function (data) {
+ /*   function bindEditor(id) {
+        if(id){
+            ajaxRequest(userCtx.URL_GET, {id:id}, function(data){
                 json2form(data, 'editForm');
             });
         }
-    }
+    }*/
 
 
     function saveOrUpdate(lotteryId, period, openTime) {
@@ -123,16 +145,16 @@ $(function () {
         search();
     }
 
-    function reset(){
-
-        $('#queryForm')[0].reset();
-    }
-
     function search() {
         var formData = form2json('queryForm');
         console.log(formData);
         table.filterParams = formData;
         table.reload();
+
+        $('#queryForm')[0].reset();
+    }
+
+    function reset(){
 
         $('#queryForm')[0].reset();
     }
@@ -143,11 +165,11 @@ $(function () {
 
     //$('.btn-edit').click(edit);
 
-    $('#btn_reset').click(reset);
-
     $('.btn-del').click(del);
 
     $('#btn_query').click(search);
+
+    $('#btn_reset').click(reset);
 
     $('#data_table').click(other);
 
@@ -157,24 +179,3 @@ $(function () {
 
 });
 
-function edit(period, openTime, lotteryId) {
-    layer.confirm('<span style="color:black">退款操作</span><br/> ' +
-        '<span style="color:black">期号：' + JSON.stringify(period) + '</span><br/>' +
-        '<span style="color:black">开奖时间：' + JSON.stringify(openTime) + '</span><br/><br/>' +
-        '<span style="color:black">温馨提示：</span><br/>' +
-        '<span style="color:black">对未开奖用户进行退款处理</span><br/>' +
-        '<span style="color:black">退款金额为投注金额的100%</span><br/><br/>', {
-        btn: ['取消', '确认退款'] //按钮
-    }, function () {
-        layer.msg('已取消', {icon: 1});
-    }, function () {
-        var postData = {"period": period, "lotteryId": lotteryId};
-        ajaxRequest(userCtx.URL_POST, postData, function (data) {
-            layer.msg('退款提示', {
-                time: 20000, //20s后自动关闭
-                btn: [data]
-            });
-        }, 'POST');
-
-    });
-}

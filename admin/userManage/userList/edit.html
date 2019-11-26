@@ -6,13 +6,13 @@
 
     <title>编辑信息</title>
 
-    <link rel="shortcut icon" href="../../../static/img/favicon.ico" />
+    <link rel="shortcut icon" href="../../static/img/favicon.ico" />
     <link href="../../../static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
     <link href="../../../static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
     <link href="../../../static/css/animate.css" rel="stylesheet" />
     <link href="../../../static/css/Validformstyle.css" rel="stylesheet" />
     <link href="../../../static/js/skin/default/style.css" rel="stylesheet" />
-    <link href="../../../static/css/style.css" rel="stylesheet" />
+    <link href="../../../static/css/style.css"  rel="stylesheet" />
     
 	<!-- 全局js -->
 	<script src="../../../static/js/jquery.min.js"></script>
@@ -24,9 +24,9 @@
 	<script src="../../../static/js/plugins/layer/layer.min.js"></script>
 	<script src="../../../static/js/LayerTool.js"></script>
 	<script src="../../../static/js/common.js"></script>
-    <script src="../../config.js"></script>
 	
-	<script src="userLoginLog.js"></script>
+	<script src="userList.js"></script>
+    <script src="../../config.js"></script>
 
 </head>
 <body class="gray-bg">
@@ -39,37 +39,46 @@
                     <div class="ibox-content">
                     
                     <form id="editForm">
-                    
-                        <input type="hidden" id="lotteryId" value="">
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">期号：</label>
+                            <label class="col-sm-3 control-label">用户名：</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" value="" id="period" name="period">
+                                <input class="form-control" type="text" value="" id="username" name="username">
                             </div>
                             <div class="Validform_checktip"></div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">开奖时间：</label>
+                            <label class="col-sm-3 control-label">密码：</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" value="" id="modifiedBegin" name="modifiedBegin">
+                                <input class="form-control" type="text" value="" id="password" name="password">
                             </div>
                             <div class="Validform_checktip"></div>
                         </div>
 
-                       <!-- <div class="form-group" hidden>
-                            <label class="col-sm-3 control-label">彩种id</label>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">余额：</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" value="" id="lotteryId" name="lotteryId">
+                                <input class="form-control" type="text" value="" id="balance" name="balance">
                             </div>
                             <div class="Validform_checktip"></div>
-                        </div>-->
+                        </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">账号类型：</label>
+                            <div class="col-sm-6">
+								<select id="userType" name="userType" class="form-control">
+									<option value="1">普通账号</option>
+									<option value="2">代理账号</option>
+									<option value="3">内部账号</option>
+								</select>
+                            </div>
+                            <div class="Validform_checktip"></div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-3">
-                                <input type="button" id="BtnSave" value="提交" class="btn btn-primary btn-save">
+                                <input type="button" id="BtnSave" value="确认" class="btn btn-primary btn-save">
                             </div>
                         </div>
                         
