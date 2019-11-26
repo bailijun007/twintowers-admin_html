@@ -1,8 +1,8 @@
 // config
 var userCtx = {
-    URL_PAGE_QUERY: "/admin/api/order/findOpenDate",
-    URL_POST: "/admin/api/order/orderRefund",
-    URL_LOTTERY_LIST: "/admin/lottery/action/getLotterys",
+    URL_PAGE_QUERY: "/admin/api/user/action/pageQueryUser",
+    // URL_POST: "/admin/api/order/orderRefund",
+    // URL_LOTTERY_LIST: "/admin/lottery/action/getLotterys",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);
@@ -18,32 +18,40 @@ $(function () {
         {
             checkbox: true
         }, {
-            title: '彩种',
-            field: 'lotteryName'
+            title: 'ID',
+            field: 'id'
         }, {
-            title: '期号',
-            field: 'period'
+            title: '用户名',
+            field: 'username'
         },
         {
-            title: '开奖数据',
-            field: 'lotteryNumber'
+            title: '姓名',
+            field: 'name'
         }, {
-            title: '状态',
-            field: 'orderState'
+            title: '类型',
+            field: 'type'
         }, {
-            title: '开奖时间',
-            field: 'openTime'
+            title: '存款总额',
+            field: 'rechargeTotal'
         }, {
-            title: '参与人数',
-            field: 'numberOfParticipants'
+            title: '提款总额',
+            field: 'drawTotal'
         }, {
-            title: '投注金额',
-            field: 'orderAmount'
+            title: '实际盈亏',
+            field: 'realityGainOrLoss'
         }, {
-            title: '中奖金额',
-            field: 'winAmount'
-        },
-        {
+            title: '总优惠',
+            field: 'concessionsTotal'
+        }, {
+            title: '总盈亏',
+            field: 'gainOrLossTotal'
+        }, {
+            title: '余额',
+            field: 'balance'
+        }, {
+            title: '注册时间',
+            field: 'created'
+        }, {
             title: '操作',
             field: '#',
             align: 'center',
