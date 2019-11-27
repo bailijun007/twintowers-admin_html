@@ -4,7 +4,7 @@ $(function () {
 
     // config
     var userCtx = {
-        URL_PAGE_QUERY: "/admin/api/action/findDataStatistics",
+        URL_PAGE_QUERY: "/admin/api/user/action/getUserLoginLog",
         // URL_POST: "/admin/api/order/orderRefund"
     };
 
@@ -15,76 +15,29 @@ $(function () {
 
     var id = 'data_table';
     var tableUrl = userCtx.URL_PAGE_QUERY;
-    var data_label = '本站数据统计';
+    var data_label = '用户登录日志';
     var columns = [
         {
             checkbox: true
         }, {
-            title: '充值总额',
-            field: 'rechargeTotal'
+            title: '用户名',
+            field: 'username'
         }, {
-            title: '在线充值',
-            field: 'onLineRecharge'
+            title: '登陆IP',
+            field: 'ip'
         }, {
-            title: '人工入款',
-            field: 'labourRecharge'
+            title: '地址',
+            field: 'address'
         }, {
-            title: 'BYS入款',
-            field: 'bysrecharge'
+            title: '时间',
+            field: 'modified'
         }, {
-            title: '投注金额',
-            field: 'orderAmountTotal'
-        }, {
-            title: '中奖金额',
-            field: 'winAmountTotal'
-        }, {
-            title: '当月总投注',
-            field: 'thisMonthOrderTotal'
-        }, {
-            title: '当月总中奖',
-            field: 'thisMonthWinTotal'
-        }, {
-            title: '投注单量',
-            field: 'bettingCounts'
-        }, {
-            title: '用户余额总数',
-            field: 'userBalanceTotal'
-        }, {
-            title: '本月损益',
-            field: 'thisMonthProfitAndLoss'
-        }, {
-            title: '上月损益',
-            field: 'lastMonthProfitAndLoss'
-        }, {
-            title: '当日盈利',
-            field: 'thisDayProfitAndLoss'
-        }, {
-            title: '当日盈率',
-            field: 'thisDayProfitAndLossRatio'
-        }, {
-            title: '当月盈利',
-            field: 'thisMonthProfitAndLoss2'
-        }, {
-            title: '当月盈率',
-            field: 'thisMonthProfitAndLossRatio'
-        }, {
-            title: '上月盈利',
-            field: 'lastMonthProfitAndLoss2'
-        }, {
-            title: '上月盈率',
-            field: 'lastMonthProfitAndLossRatio'
-        }, {
-            title: '充值笔数',
-            field: 'rechargeNum'
-        }, {
-            title: '提现笔数',
-            field: 'withdrawNum'
-        }, {
-            title: '注册人数',
-            field: 'registerNum'
-        }, {
-            title: '在线人数',
-            field: 'onLineNum'
+            title : '操作',
+            field : '#',
+            align : 'center',
+            formatter : function(value, row, index) {
+                return '<a data-id="'+row.username+'" class=""  href="javascript:edit2(\''+row.username+'\')">只看此人</a>';
+            }
         }
     ];
 
@@ -98,6 +51,16 @@ $(function () {
         Dialog.openUrl('edit.html', '添加' + data_label, 800);
     }
 
+    function edit(event) {
+        var username = $(event.target).data('username');
+        alert(username);
+        //Dialog.openUrl('lookUpDetails.html?username='+username, '只看此人', 1600);
+    }
+
+    // function lookUpDetails(username){
+    //     alert(username);
+    //     Dialog.openUrl('lookUpDetails.html?username='+username, '只看此人', 1600);
+    // }
 
     function other(event) {
         console.log(event);
@@ -123,6 +86,8 @@ $(function () {
             });
         }
     }
+
+
 
  /*   function bindEditor(id) {
         if(id){
@@ -163,7 +128,7 @@ $(function () {
 
     $('.btn-save').click(saveOrUpdate);
 
-    //$('.btn-edit').click(edit);
+    $('.btn-edit').click(edit);
 
     $('.btn-del').click(del);
 
@@ -179,3 +144,7 @@ $(function () {
 
 });
 
+////////////////////
+function edit2(username) {
+    Dialog.openUrl('lookUpDetails.html?username='+username, '只看此人', 1600);
+}

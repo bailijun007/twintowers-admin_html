@@ -4,7 +4,7 @@ $(function(){
 	// config
 	var userCtx = {
 		URL_PAGE_QUERY : "/admin/api/order/findlotteryPlaySnAnalysisDetails",
-        URL_LOTTERY_LIST : "/admin/lottery/action/getLotterys"
+        //URL_LOTTERY_LIST : "/admin/lottery/action/getLotterys"
 	};
 	
 	BeanUtil.setPrefix(userCtx, appConfig.host);
@@ -46,29 +46,17 @@ $(function(){
 	var table = new MyDataTable(id, tableUrl, columns, true);
 	table.ajaxMethod = 'post';
 	table.init();
-//加载彩票列表
-    initLottery();
 
-    function initLottery() {
-
-        ajaxRequest(userCtx.URL_LOTTERY_LIST, '', function(data){
-            $.each(data, function (i, item) {
-                $("#lottery").append("<option value="+item.lotteryId+">"+item.lotteryName+"</option>");
-            });
-
-        },'GET');
-
-    }
 
     function search(){
-        var formData = form2json('queryForm');
+        var formData ={"lotteryId":T.p('lotteryId')};
         console.log(formData);
         table.filterParams=formData;
         table.reload();
 
         //$('#queryForm')[0].reset();
     }
-    $('#btn_query').click(search);
+    search();
 
 });
 

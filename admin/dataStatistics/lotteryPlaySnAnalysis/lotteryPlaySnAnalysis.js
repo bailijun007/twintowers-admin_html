@@ -41,8 +41,11 @@ $(function(){
             title: '操作',
             field: '#',
             align: 'center',
+            // formatter : function(value, row, index) {
+            //     return '<a data-id="'+row.lotteryId+'" class="btn-edit"  href="javascript:void(0)">详情</a>';
+            // }
             formatter : function(value, row, index) {
-                return '<a data-id="'+row.lotteryId+'" class="btn-edit"  href="javascript:void(0)">详情</a>';
+                return '<a data-id="'+row.lotteryId+'" class=""  href="javascript:edit2(\''+row.lotteryId+'\')">详情</a>';
             }
 
         }
@@ -72,9 +75,9 @@ $(function(){
 	}
 
 
-	function edit(event){
-		Dialog.openUrl('lookUpDetails.html', '查看详情', 1600);
-	}
+	// function edit(event){
+	// 	Dialog.openUrl('lookUpDetails.html', '查看详情', 1600);
+	// }
 
 
 	function other(event){
@@ -139,7 +142,7 @@ $(function(){
 	
 	$('.btn-save').click(saveOrUpdate);
 
-	$('.btn-edit').click(edit);
+	//$('.btn-edit').click(edit);
 	
 	$('.btn-del').click(del);
 	
@@ -155,3 +158,6 @@ $(function(){
 	
 });
 
+function edit2(lotteryId) {
+    Dialog.openUrl('lookUpDetails.html?lotteryId='+lotteryId, '只看此人', 1600);
+}
