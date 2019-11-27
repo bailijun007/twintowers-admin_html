@@ -25,7 +25,7 @@
 	<script src="../../../static/js/LayerTool.js"></script>
 	<script src="../../../static/js/common.js"></script>
     <script src="../../config.js"></script>
-	<script src="userList.js"></script>
+	<script src="agentList.js"></script>
 
 
 </head>
@@ -41,37 +41,33 @@
                     <form id="editForm">
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">用户名：</label>
+                            <label class="col-sm-3 control-label">账户</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" value="" id="username" name="username">
+                                <input class="form-control" type="text" value="" id="username" placeholder="账户" name="username">
                             </div>
                             <div class="Validform_checktip"></div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">密码：</label>
+                            <label class="col-sm-3 control-label">密码</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" value="" id="password" name="password">
+                                <input class="form-control" type="text" value="" id="password" placeholder="密码" name="password">
                             </div>
                             <div class="Validform_checktip"></div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">余额：</label>
+                            <label class="col-sm-3 control-label">确认密码</label>
                             <div class="col-sm-6">
-                                <input class="form-control" type="text" value="" id="balance" name="balance">
+                                <input class="form-control" type="text" value="" placeholder="确认密码" id="repassword" name="repassword">
                             </div>
                             <div class="Validform_checktip"></div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">账号类型：</label>
+                            <label class="col-sm-3 control-label">佣金比例</label>
                             <div class="col-sm-6">
-								<select id="userType" name="userType" class="form-control">
-									<option value="1">普通账号</option>
-									<option value="2">代理账号</option>
-									<option value="3">内部账号</option>
-								</select>
+                                <input class="form-control" type="text" value="" placeholder="3%" id="odds" name="odds">
                             </div>
                             <div class="Validform_checktip"></div>
                         </div>
