@@ -3,7 +3,8 @@ var userCtx = {
     URL_PAGE_QUERY: "/admin/api/action/findAdminUsers",
     URL_ADDUSER: "/admin/api/action/saveAdminUser",
     URL_UPDATEPASSWORD: "/admin/api/action/updatePassword",
-    URL_UPDATEROLE: "/admin/api/action/updatePassword",
+    URL_UPDATEROLE: "/admin/api/action/updateRole",
+    URL_DELETED: "/admin/api/action/deleteAdminUser",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);
@@ -43,7 +44,7 @@ $(function () {
             formatter: function (value, row, index) {
                 return "<a data-id='" + row.id + "' onclick='changePassword(" + JSON.stringify(row.id) + ")'>修改密码</a>" +
                     "<a data-id='" + row.id + "' onclick='changeRole(" + JSON.stringify(row.id) + ")'>修改角色</a>" +
-                    "<a data-id='" + row.id + "' onclick='queryAgentLinks(" + JSON.stringify(row.id) + ")'>删除</a>";
+                    "<a data-id='" + row.id + "' onclick='deleted(" + JSON.stringify(row.id) + ")'>删除</a>";
             }
         }
     ];
@@ -134,14 +135,15 @@ $(function () {
         var adminId = T.p('adminId');
         var roleId=$("#roleId").val();
        // alert(adminId);
-        ajaxRequest(userCtx.URL_UPDATEROLE+"?adminId="+adminId+"&roleId="+roleId, '', function (data) {
+        var postData = {"adminId":adminId,"roleId":roleId};
+        ajaxRequest(userCtx.URL_UPDATEROLE, postData, function (data) {
             //refreshTable();
             layer.msg('提示', {
                 time: 20000, //20s后自动关闭
                 btn: [data]
             });
 
-        }, 'GET');
+        }, 'POST');
     }
 
     function refreshTable() {
@@ -186,4 +188,16 @@ function changePassword(id) {
 
 function changeRole(id) {
     Dialog.openUrl('changeRole.html?adminId=' + id, '修改角色', 1600);
+}
+
+function deleted(id) {
+    // Dialog.openUrl('changeRole.html?adminId=' + id, '删除', 1600);
+    ajaxRequest(userCtx.URL_DELETED+"?adminId="+id, '', function (data) {
+        //refreshTable();
+        layer.msg('提示', {
+            time: 20000, //20s后自动关闭
+            btn: [data]
+        });
+
+    }, 'GET');
 }
