@@ -1,8 +1,9 @@
 // config
 var userCtx = {
-    URL_PAGE_QUERY: "/admin/api/user/action/getAgentList",
-    URL_ADDUSER: "/admin/api/user/action/registerByAdmin"
-
+    URL_PAGE_QUERY: "/admin/api/action/findAdminUsers",
+    URL_ADDUSER: "/admin/api/action/saveAdminUser",
+    URL_UPDATEPASSWORD: "/admin/api/action/updatePassword",
+    URL_UPDATEROLE: "/admin/api/action/updatePassword",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);
@@ -13,7 +14,7 @@ $(function () {
 
     var id = 'data_table';
     var tableUrl = userCtx.URL_PAGE_QUERY;
-    var data_label = '代理列表';
+    var data_label = '管理员列表';
     var columns = [
         {
             checkbox: true
@@ -22,68 +23,27 @@ $(function () {
             field: 'id'
         }, {
             title: '用户名',
-            field: 'username'
-        }, {
-            title: '来源',
-            field: 'source'
-        }, {
-            title: '姓名',
             field: 'name'
         }, {
-            title: '层级',
-            field: 'agentGrade'
-        }, {
-            title: '首充用户',
-            field: 'firstChargeUser'
-        }, {
-            title: '注册用户',
-            field: 'registerUser'
-        }, {
-            title: '存款',
-            field: 'rechargeAmount'
-        }, {
-            title: '提现',
-            field: 'embodyAmount'
-        }, {
-            title: '投注',
-            field: 'orderAmount'
-        }, {
-            title: '中奖',
-            field: 'winAmount'
-        }, {
-            title: '佣金比例',
-            field: 'rebateRatio'
-        }, {
-            title: '佣金',
-            field: 'rebateMoney'
-        }, {
-            title: '优惠',
-            field: 'discounts'
-        }, {
-            title: '余额',
-            field: 'balance'
-        }, {
-            title: '盈亏',
-            field: 'profitAndLoss'
+            title: '登录IP',
+            field: 'loginIp'
         }, {
             title: '状态',
-            field: 'state'
+            field: 'status'
         }, {
-            title: '投注用户',
-            field: 'orderUserCount'
+            title: '角色',
+            field: 'roleName'
         }, {
-            title: '在线用户',
-            field: 'onlineUserCount'
-        }, {
-            title: '注册时间',
-            field: 'created'
+            title: '最后登录时间',
+            field: 'lastLogin'
         }, {
             title: '操作',
             field: '#',
             align: 'center',
             formatter: function (value, row, index) {
-                return "<a data-id='" + row.id + "' onclick='subordinate(" + JSON.stringify(row.id) + ")'>下级</a>" +
-                    "<a data-id='" + row.id + "' onclick='queryAgentLinks(" + JSON.stringify(row.id) + ")'>链接</a>";
+                return "<a data-id='" + row.id + "' onclick='changePassword(" + JSON.stringify(row.id) + ")'>修改密码</a>" +
+                    "<a data-id='" + row.id + "' onclick='changeRole(" + JSON.stringify(row.id) + ")'>修改角色</a>" +
+                    "<a data-id='" + row.id + "' onclick='queryAgentLinks(" + JSON.stringify(row.id) + ")'>删除</a>";
             }
         }
     ];
@@ -150,6 +110,40 @@ $(function () {
         }, 'POST');
     }
 
+
+    function saveChangePassword() {
+        // debugger
+        var id = T.p('id');
+       var password=$("#password").val();
+        var newPassword=$("#newPassword").val();
+        var rePassword=$("#rePassword").val();
+        var postData = {"id":id,"password":password,"newPassword":newPassword,"rePassword":rePassword};
+        ajaxRequest(userCtx.URL_UPDATEPASSWORD, postData, function (data) {
+            //refreshTable();
+            layer.msg('提示', {
+                time: 20000, //20s后自动关闭
+                btn: [data]
+            });
+
+        }, 'POST');
+    }
+
+
+    function saveChangeRole() {
+        // debugger
+        var adminId = T.p('adminId');
+        var roleId=$("#roleId").val();
+       // alert(adminId);
+        ajaxRequest(userCtx.URL_UPDATEROLE+"?adminId="+adminId+"&roleId="+roleId, '', function (data) {
+            //refreshTable();
+            layer.msg('提示', {
+                time: 20000, //20s后自动关闭
+                btn: [data]
+            });
+
+        }, 'GET');
+    }
+
     function refreshTable() {
         $('#queryForm')[0].reset();
         search();
@@ -167,6 +161,10 @@ $(function () {
 
     $('.btn-add').click(add);
 
+    $('#changeRole').click(saveChangeRole);
+
+    $('#changePassword').click(saveChangePassword);
+
     $('.btn-save').click(saveOrUpdate);
 
     $('.btn-edit').click(edit);
@@ -180,12 +178,12 @@ $(function () {
 
 });
 
-function subordinate(id) {
-    Dialog.openUrl('subordinate.html?id=' + id, '查看下级', 1600);
+function changePassword(id) {
+    Dialog.openUrl('changePassword.html?id=' + id, '修改密码', 1600);
 
 }
 
 
-function queryAgentLinks(id) {
-    Dialog.openUrl('agentLinks.html?id=' + id, '查看推广链接', 1600);
+function changeRole(id) {
+    Dialog.openUrl('changeRole.html?adminId=' + id, '修改角色', 1600);
 }
