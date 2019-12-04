@@ -1,6 +1,6 @@
 // config
 var userCtx = {
-    URL_GET: "/admin/api/user/action/findRegisterFree",
+    URL_GET: "/admin/activity/action/findRegisterFree",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);

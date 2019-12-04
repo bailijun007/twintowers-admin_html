@@ -1,6 +1,6 @@
 // config
 var userCtx = {
-    URL_GET: "/admin/api/user/action/findFirstLoginSetUp",
+    URL_GET: "/admin/activity/action/findFirstLoginSetUp",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);

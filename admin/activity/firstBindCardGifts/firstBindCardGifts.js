@@ -1,6 +1,6 @@
 // config
 var userCtx = {
-    URL_GET: "/admin/api/user/action/findBindbankCardSetUp",
+    URL_GET: "/admin/activity/action/findBindbankCardSetUp",
 };
 
 BeanUtil.setPrefix(userCtx, appConfig.host);
